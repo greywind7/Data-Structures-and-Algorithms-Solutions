@@ -1,8 +1,11 @@
 #include <iostream>
 
 int get_change(int m) {
-  //write your code here
-  return n;
+  int total = 0;
+  total += m/10; m %= 10;
+  total += m/5;  m %= 5;
+  total += m;
+  return total;
 }
 
 int main() {

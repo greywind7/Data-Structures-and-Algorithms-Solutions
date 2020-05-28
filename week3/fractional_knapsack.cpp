@@ -6,6 +6,11 @@ using std::vector;
 double get_optimal_value(int capacity, vector<int> weights, vector<int> values) {
   double value = 0.0;
   map <double,int> worth;
+  int tot_wt = 0;
+  tot_wt+= accumulate(weights.begin(),weights.end(),tot_wt);
+  
+  if(tot_wt <= capacity)  
+    return accumulate(values.begin(),values.end(),0);
 
   for (int i = 0; i < values.size( ); i++)
     worth[(double) -1 * values[i]/weights[i] ] = i;

@@ -9,7 +9,7 @@ vector<int> optimal_summands(int n) {
 
   while (n!= 0)
   {
-    if(cur + nxt < n)
+    if(cur + nxt <= n)
     {
       summands.push_back(cur);
       n -= cur;

@@ -1,14 +1,15 @@
-#include <algorithm>
-#include <iostream>
-#include <vector>
+#include<bits/stdc++.h>
 
-using std::vector;
+using namespace std;
+using prq = priority_queue<int>;
 
-long long max_dot_product(vector<int> a, vector<int> b) {
+long long max_dot_product(prq a, prq b) {
   // write your code here
   long long result = 0;
-  for (size_t i = 0; i < a.size(); i++) {
-    result += ((long long) a[i]) * b[i];
+  while(!a.empty()) {
+    result += (long long) (a.top() * b.top());
+    a.pop();
+    b.pop();
   }
   return result;
 }
@@ -16,12 +17,16 @@ long long max_dot_product(vector<int> a, vector<int> b) {
 int main() {
   size_t n;
   std::cin >> n;
-  vector<int> a(n), b(n);
+  prq a, b;
   for (size_t i = 0; i < n; i++) {
-    std::cin >> a[i];
+    int tmp;
+    std::cin >> tmp;
+    a.push(tmp);
   }
   for (size_t i = 0; i < n; i++) {
-    std::cin >> b[i];
+    int tmp;
+    std::cin >> tmp;
+    b.push(tmp);
   }
   std::cout << max_dot_product(a, b) << std::endl;
 }

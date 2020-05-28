@@ -1,12 +1,33 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
+using namespace std;
 using std::vector;
 
 double get_optimal_value(int capacity, vector<int> weights, vector<int> values) {
   double value = 0.0;
+  map <double,int> worth;
 
-  // write your code here
+  for (int i = 0; i < values.size( ); i++)
+    worth[(double) -1 * values[i]/weights[i] ] = i;
+
+  auto ptr = worth.begin();
+  while (capacity != 0)
+  {
+    int indx = ptr->second;
+    // cout << ptr->first << " " << weights[indx] << endl;
+    if(capacity > weights[indx])
+    {
+      value += (double) -1 * ptr->first * weights[indx];
+      capacity -= weights[indx];
+    }
+    else
+    {
+      value += (double) -1 *  ptr->first * capacity;
+      capacity = 0;
+    }
+    ptr++;
+  }
+  
 
   return value;
 }
@@ -23,7 +44,6 @@ int main() {
 
   double optimal_value = get_optimal_value(capacity, weights, values);
 
-  std::cout.precision(10);
-  std::cout << optimal_value << std::endl;
+  printf("%.4f\n",optimal_value);
   return 0;
 }

@@ -32,7 +32,7 @@ int main() {
     cin >> stops[0];
     for (int i = 1; i < n; i++){
         cin >> stops.at(i);
-        no = (stops[i] - stops[i-1]) > m ? true : false;
+        no = (stops[i] - stops[i-1]) > m ? true : no;
     }
     no = (d - stops.back()) > m ? true: no;
     cout << (no ? -1 : compute_min_refills(d, m, stops)) << "\n";

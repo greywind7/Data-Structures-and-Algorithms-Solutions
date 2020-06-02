@@ -2,16 +2,27 @@
 
 using namespace std;
 
+int lower_int(vector<int>&x,int val)
+{
+    int tmp = x[0],i;
+    for(i = 0;i < x.size()-1;i++)
+        if(val >= x[i] && val < x[i+1]) return x[i];
+    return x[i];
+}
+
 int compute_min_refills(int dist, int tank, vector<int> & stops) {
     // write your code here
-    auto stop = lower_bound(stops.begin(),stops.end(),tank);
+    auto stop = lower_int(stops,tank);
     auto end = stops.back();
-    int refils = 1, stop_v = *stop;
+    // cout << stop << endl;
+    if(stop == end) return 0;
+    int refils = 1, stop_v = stop;
 
-    while(stop_v != end || (stop_v + tank) < dist)
+    while(stop_v != end && (stop_v + tank) < dist)
     {
-        stop = lower_bound(stops.begin(),stops.end(),tank+stop_v);
-        stop_v = *stop;
+        stop = lower_int(stops,tank+stop_v);
+        stop_v = stop;
+        // cout << stop_v << endl;
         refils++;
     }
 

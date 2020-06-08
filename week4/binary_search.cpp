@@ -29,6 +29,29 @@ int linear_search(const vector<int> &a, int x) {
   return -1;
 }
 
+void stress()
+{
+  int range = rand() % 100;
+  vector<int> x(range);
+  while(range--) x[range] = rand() % 100;
+  // for(int i:x) cout << i << ' ';
+  sort(x.begin(),x.end());
+  int check = rand() % 100;
+  bool res = (linear_search(x, check) == binary_search(x,check));
+  // for(int i:x) cout << i << ' ' << endl << res;
+  if(res){
+    for(int i:x) cout << i << ' ';
+    cout << '\n' << linear_search(x, check) << ' ' << binary_search(x, check) << endl;
+    stress();
+  } 
+  else
+  {
+    for(int i:x) cout << i << ' ';
+    cout << '\n' << linear_search(x, check) << ' ' << binary_search(x, check) << endl; 
+  }
+  
+}
+
 int main() {
   int n;
   std::cin >> n;
@@ -46,4 +69,5 @@ int main() {
     //replace with the call to binary_search when implemented
     cout << binary_search(a, b[i]) << ' ';
   }
+  // stress();
 }

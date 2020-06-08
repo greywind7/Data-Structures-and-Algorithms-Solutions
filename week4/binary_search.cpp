@@ -3,16 +3,17 @@
 using namespace std;
 
 int binary_search(const vector<int> &a, int x) {
-  int left = 0, right = (int)a.size(); 
+  int left = 0, right = (int)a.size() -1; 
   //write your code here
 
   if(a[left] == x) return 0;
-  if(a[right-1] == x) return right-1;
+  if(a[right] == x) return right;
 
-  int mid = (left + right/2), prev_mid = -1;
+  int mid = (left + right)/2, prev_mid = -1;
 
   while(mid != prev_mid)
   {
+    // cout << mid << ' ' << left << ' ' << right << endl;
     if(a[mid] == x) return mid;
     else if(a[mid] < x) left = mid + 1;
     else right = mid;

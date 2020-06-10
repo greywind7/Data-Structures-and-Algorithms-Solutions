@@ -1,1 +1,8 @@
-The last 3 problems are still to be done
+TLE on the quicksort
+
+The stress test on the inversions problem is not showing correct output
+For some reason unknown to me (I fixed it now though)
+All the test cases did pass though, 
+It crashes because of infinite recursion
+
+Lottery and Shortest path problems not done yet

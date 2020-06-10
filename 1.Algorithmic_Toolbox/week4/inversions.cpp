@@ -52,7 +52,7 @@ int merge_inver(vector<int>&X, int l, int r)
     }
 
     auto ti = temp.begin();
-    while(l < r && ti != temp.end())
+    while(l <= r && ti != temp.end())
     {
       // cout << "SIX" << endl;
       X[l] = *ti;
@@ -65,36 +65,39 @@ int merge_inver(vector<int>&X, int l, int r)
 
 void stress()
 {
-  int range = rand() % 10;
+  int range = rand() % 10 + 3;
   vector<int> x(range);
   while(range--) x[range] = rand() % 10;
-  // for(int i:x) cout << i << ' ';
-  bool res = (get_number_of_inversions(x) == merge_inver(x,0,x.size()-1));
+  cout << x.size() << endl;
+  for(int i:x) cout << i << ' ';
+  long nv = get_number_of_inversions(x), qk = merge_inver(x,0,x.size()-1);
+  bool res = (nv == qk);
   // for(int i:x) cout << i << ' ' << endl << res;
   if(res){
+    // cout << x.size() << endl;
     // for(int i:x) cout << i << ' ';
-    // cout << '\n' << get_number_of_inversions(x) << ' ' << merge_inver(x,0,x.size()-1) << endl;
+    cout << '\n' << nv << ' ' << qk << "\n\n";
     stress();
   } 
   else
   {
-    cout << x.size() << endl;
-    for(int i:x) cout << i << ' ';
-    cout << '\n' << get_number_of_inversions(x) << ' ' << merge_inver(x,0,x.size()-1) << endl; 
+    // cout << x.size() << endl;
+    // for(int i:x) cout << i << ' ';
+    cout << '\n' << nv << ' ' << qk << endl; 
   }
   
 }
 
 int main() {
-  // int n;
-  // std::cin >> n;
-  // vector<int> a(n);
-  // for (size_t i = 0; i < a.size(); i++) {
-  //   std::cin >> a[i];
-  // }
-  // vector<int> b(a.size());
-  // std::cout << merge_inver(a,0,a.size()-1) << '\n';
+  int n;
+  std::cin >> n;
+  vector<int> a(n);
+  for (size_t i = 0; i < a.size(); i++) {
+    std::cin >> a[i];
+  }
+  vector<int> b(a.size());
+  std::cout << merge_inver(a,0,a.size()-1) << '\n';
   // for(int i:a)
   //   cout << i << ' ';
-  stress();
+  // stress();
 }

@@ -2,13 +2,12 @@
 
 using namespace std;
 
-long long get_number_of_inversions(vector<int> &a, vector<int> &b, size_t left, size_t right) {
+long long get_number_of_inversions(vector<int> &a) {
   long long number_of_inversions = 0;
-  if (right <= left + 1) return number_of_inversions;
-  size_t ave = left + (right - left) / 2;
-  number_of_inversions += get_number_of_inversions(a, b, left, ave);
-  number_of_inversions += get_number_of_inversions(a, b, ave, right);
-  //write your code here
+  for(int i = 0; i < a.size()-1;i++)
+    for(int j = i + 1; j < a.size(); j++)
+      if(a[i] > a[j])
+        number_of_inversions++;
   return number_of_inversions;
 }
 
@@ -64,15 +63,38 @@ int merge_inver(vector<int>&X, int l, int r)
     return inv;
 }
 
-int main() {
-  int n;
-  std::cin >> n;
-  vector<int> a(n);
-  for (size_t i = 0; i < a.size(); i++) {
-    std::cin >> a[i];
+void stress()
+{
+  int range = rand() % 10;
+  vector<int> x(range);
+  while(range--) x[range] = rand() % 10;
+  // for(int i:x) cout << i << ' ';
+  bool res = (get_number_of_inversions(x) == merge_inver(x,0,x.size()-1));
+  // for(int i:x) cout << i << ' ' << endl << res;
+  if(res){
+    // for(int i:x) cout << i << ' ';
+    // cout << '\n' << get_number_of_inversions(x) << ' ' << merge_inver(x,0,x.size()-1) << endl;
+    stress();
+  } 
+  else
+  {
+    cout << x.size() << endl;
+    for(int i:x) cout << i << ' ';
+    cout << '\n' << get_number_of_inversions(x) << ' ' << merge_inver(x,0,x.size()-1) << endl; 
   }
-  vector<int> b(a.size());
-  std::cout << merge_inver(a,0,a.size()-1) << '\n';
+  
+}
+
+int main() {
+  // int n;
+  // std::cin >> n;
+  // vector<int> a(n);
+  // for (size_t i = 0; i < a.size(); i++) {
+  //   std::cin >> a[i];
+  // }
+  // vector<int> b(a.size());
+  // std::cout << merge_inver(a,0,a.size()-1) << '\n';
   // for(int i:a)
   //   cout << i << ' ';
+  stress();
 }

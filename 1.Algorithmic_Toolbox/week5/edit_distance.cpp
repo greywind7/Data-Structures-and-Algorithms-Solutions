@@ -1,11 +1,41 @@
-#include <iostream>
-#include <string>
+#include<bits/stdc++.h>
 
-using std::string;
+using namespace std;
 
 int edit_distance(const string &str1, const string &str2) {
   //write your code here
-  return 0;
+
+  int m = str1.length(), n = str2.length();
+  int mat[m+1][n+1];
+
+  for(int i = 0; i < m+1; i++)
+    mat[0][i] = i;
+  for(int i = 0; i < n+1; i++)
+    mat[i][0] = i;
+
+  for (int i = 1; i < m+1; i++)
+  {
+    for (int j = 1; j < n+1; j++)
+    {
+      int match = mat[i-1][j-1], in = mat[i][j-1] + 1, del = mat[i-1][j] + 1, mis = mat[i-1][j-1] + 1;
+
+      if(str1[i] == str2[j])
+        mat[i][j] = min(min(match,in),del);
+      else
+        mat[i][j] = min(min(mis,in),del);
+    }
+    
+  }
+  // for(int i = 0; i < m+1; i++)
+  // {
+  //   for (int j = 0; j < n+1; j++)
+  //   {
+  //     cout << mat[i][j] << ' ';
+  //   }
+  //   cout << endl;
+  // }
+  return mat[m][n];
+
 }
 
 int main() {

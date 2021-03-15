@@ -1,17 +1,35 @@
-#include <iostream>
-#include <vector>
+#include<bits/stdc++.h>
 
-using std::vector;
+using namespace std;
 
 int optimal_weight(int W, const vector<int> &w) {
-  //write your code here
-  int current_weight = 0;
-  for (size_t i = 0; i < w.size(); ++i) {
-    if (current_weight + w[i] <= W) {
-      current_weight += w[i];
+  int n = w.size();
+  int mat[n][W+1];
+
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < W+1; j++)
+    {
+      int wt = w[i];
+      if(j - wt < 0){
+        if(i==0) mat[i][j] = 0;
+        else mat[i][j] = mat[i-1][j];
+      }
+      else{
+        if(i == 0) mat[i][j] = wt;
+        else mat[i][j] = max(mat[i-1][j-wt]+wt,mat[i-1][j]);
+      }
     }
   }
-  return current_weight;
+  // for(int i = 0; i < n; i++)
+  // {
+  //   for (int j = 0; j < W+1; j++)
+  //   {
+  //     cout << mat[i][j] << ' ';
+  //   }
+  //   cout << endl;
+  // }
+  return mat[n-1][W];
 }
 
 int main() {
@@ -21,5 +39,6 @@ int main() {
   for (int i = 0; i < n; i++) {
     std::cin >> w[i];
   }
+  sort(w.begin(),w.end());
   std::cout << optimal_weight(W, w) << '\n';
 }

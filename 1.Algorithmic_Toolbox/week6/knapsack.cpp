@@ -4,7 +4,7 @@ using namespace std;
 
 int optimal_weight(int W, const vector<int> &w) {
   int n = w.size();
-  int mat[n][W+1];
+  vector <vector<int>> mat(n,vector<int>(W+1,0));
 
   for (int i = 0; i < n; i++)
   {

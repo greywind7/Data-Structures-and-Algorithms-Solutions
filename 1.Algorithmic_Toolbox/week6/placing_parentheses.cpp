@@ -33,6 +33,12 @@ long long get_maximum_value(const string &expr) {
   }
 
   int n = num.size();
+  // for(int i = 0; i < n; i++)
+  //    cout << num[i] << " ";
+  //    cout << endl;
+  // for(int i = 0; i < exp.size(); i++)
+  //    cout << exp[i] << " ";
+  //    cout << endl;
   long long mx[n][n], mn[n][n];
   int ret_i = 0, ret_j = 0;
   while(1)
@@ -60,7 +66,7 @@ long long get_maximum_value(const string &expr) {
       {
         long mini = numeric_limits<long>::max() ;
         long maxi = numeric_limits<long>::min() ;
-        for(int k = i; k < j -1; k++)
+        for(int k = i; k < j ; k++)
         {
           long Ml = mx[i][k], Mh = mx[k+1][j];
           long ml = mn[i][k], mh = mn[k+1][j];
@@ -69,7 +75,7 @@ long long get_maximum_value(const string &expr) {
           long b = eval(Ml,mh,epp);
           long c = eval(ml,Mh,epp);
           long d = eval(ml,mh,epp);
-
+          // cout << Ml << endl << Mh << endl << ml << endl << mh << epp<<k<< endl;
           mini = min(mini,min(a,min(b,min(c,d))));
           maxi = max(maxi,max(a,max(b,max(c,d))));
         }
@@ -180,7 +186,7 @@ void stress()
   while(1){
     vector<char>X;
     char exp[] = {'*','+'};
-    int xxx = 9; int t = 1;
+    int xxx = 5; int t = 1;
     while(xxx--)
     {
       int x = rand() % 10 + 48;
@@ -205,9 +211,9 @@ void stress()
 }
 
 int main() {
-//   string s;
-//   std::cin >> s;
-//   std::cout << get_maximum_value(s) << '\n';
-// }
-  stress();
+  string s;
+  std::cin >> s;
+  std::cout << get_maximum_value(s) << '\n';
+
+  // stress();
 }

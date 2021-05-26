@@ -11,7 +11,12 @@ int main() {
 
     for(char c:text)
     {
-        if(c=='(' || c == '[' || c=='{')
+        if(st.empty() && (c==')' || c == ']' || c=='}'))
+        {
+            cout << pos << endl;
+            return 0;
+        }
+        else if(c=='(' || c == '[' || c=='{')
         {
             st.push(make_pair(c,pos));
             pos++;
@@ -24,8 +29,8 @@ int main() {
             }
             else
             {
-                cout << st.top().second;
-                break;
+                cout << pos << endl;
+                return 0;
             } 
         }
         else if(c==']')
@@ -36,8 +41,8 @@ int main() {
             }
             else
             {
-                cout << st.top().second;
-                break;
+                cout << pos << endl;
+                return 0;
             } 
         }
         else if(c=='}')
@@ -48,8 +53,8 @@ int main() {
             }
             else
             {
-                cout << st.top().second;
-                break;
+                cout << pos << endl;
+                return 0;
             } 
         }
         else
@@ -59,7 +64,7 @@ int main() {
     if(st.empty())
         cout << "Success";
     else
-        cout << st.top().second;
+        cout << st.top().second << endl;
 
     return 0;
 }

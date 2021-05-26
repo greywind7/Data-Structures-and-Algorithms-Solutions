@@ -1,45 +1,65 @@
-#include <iostream>
-#include <stack>
-#include <string>
+#include<bits/stdc++.h>
 
-struct Bracket {
-    Bracket(char type, int position):
-        type(type),
-        position(position)
-    {}
-
-    bool Matchc(char c) {
-        if (type == '[' && c == ']')
-            return true;
-        if (type == '{' && c == '}')
-            return true;
-        if (type == '(' && c == ')')
-            return true;
-        return false;
-    }
-
-    char type;
-    int position;
-};
+using namespace std;
 
 int main() {
-    std::string text;
-    getline(std::cin, text);
+    string text;
+    getline(cin, text);
 
-    std::stack <Bracket> opening_brackets_stack;
-    for (int position = 0; position < text.length(); ++position) {
-        char next = text[position];
+    stack<pair<char,int> > st;
+    int pos = 1;
 
-        if (next == '(' || next == '[' || next == '{') {
-            // Process opening bracket, write your code here
+    for(char c:text)
+    {
+        if(c=='(' || c == '[' || c=='{')
+        {
+            st.push(make_pair(c,pos));
+            pos++;
         }
-
-        if (next == ')' || next == ']' || next == '}') {
-            // Process closing bracket, write your code here
+        else if(c==')')
+        {
+            if(st.top().first == '('){
+                st.pop();
+                pos++;
+            }
+            else
+            {
+                cout << st.top().second;
+                break;
+            } 
         }
+        else if(c==']')
+        {
+            if(st.top().first == '['){
+                st.pop();
+                pos++;
+            }
+            else
+            {
+                cout << st.top().second;
+                break;
+            } 
+        }
+        else if(c=='}')
+        {
+            if(st.top().first == '{'){
+                st.pop();
+                pos++;
+            }
+            else
+            {
+                cout << st.top().second;
+                break;
+            } 
+        }
+        else
+            pos++;
     }
 
-    // Printing answer, write your code here
+    if(st.empty())
+        cout << "Success";
+    else
+        cout << st.top().second;
 
     return 0;
 }

@@ -1,59 +1,92 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <cassert>
-#include <algorithm>
+#include<bits/stdc++.h>
 
-using std::cin;
-using std::string;
-using std::vector;
-using std::cout;
-using std::max_element;
+using namespace std;
 
-class StackWithMax {
-    vector<int> stack;
+class lst
+{
+    class node{
+        public:
+        int data, mx;
+        node* prev;
 
-  public:
+        node(int d)
+        {
+            data = d;
+            mx = INT_MIN;
+            prev = NULL;
+        }
+    };
 
-    void Push(int value) {
-        stack.push_back(value);
+    node *last, *top;
+
+    public:
+    lst()
+    {
+        last = NULL;
+        top = NULL;
+    }
+    void push(int x)
+    {
+        node *temp;
+        if(last == NULL)
+        {
+            temp = new node(x);
+            temp->mx = x;
+            this->top = temp;
+            this->last = temp;
+        }
+        else{
+            temp = new node(x);
+            temp->mx = max(x,this->top->mx);
+            temp->prev = this->top;
+            this->top = temp;
+        }
     }
 
-    void Pop() {
-        assert(stack.size());
-        stack.pop_back();
+    int pop()
+    {
+        if(this->top == this->last)
+        {
+            int x = this->top->data;
+            delete this->top;
+            this->top = NULL;
+            this->last = NULL;
+            return x;
+        }
+        else{
+            node *temp = this->top;
+            this->top = this->top->prev;
+            int x = temp->data;
+            delete temp;
+            return x;
+        }
     }
 
-    int Max() const {
-        assert(stack.size());
-        return *max_element(stack.begin(), stack.end());
+    int maxi()
+    {
+        return this->top->mx;
     }
 };
 
-int main() {
-    int num_queries = 0;
-    cin >> num_queries;
 
-    string query;
-    string value;
-
-    StackWithMax stack;
-
-    for (int i = 0; i < num_queries; ++i) {
-        cin >> query;
-        if (query == "push") {
-            cin >> value;
-            stack.Push(std::stoi(value));
+int main()
+{
+    lst lklst;
+    int n;
+    cin >> n;
+    while(n--)
+    {
+        string s;
+        int x;
+        cin >> s;
+        if(s == "push")
+        {
+            cin >> x;
+            lklst.push(x);
         }
-        else if (query == "pop") {
-            stack.Pop();
-        }
-        else if (query == "max") {
-            cout << stack.Max() << "\n";
-        }
-        else {
-            assert(0);
-        }
+        if(s == "pop")
+            lklst.pop();
+        if(s == "max")
+            cout << lklst.maxi() << endl;
     }
-    return 0;
 }

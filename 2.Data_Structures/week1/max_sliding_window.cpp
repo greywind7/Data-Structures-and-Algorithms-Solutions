@@ -1,36 +1,123 @@
-#include <iostream>
-#include <vector>
+#include<bits/stdc++.h>
 
-using std::cin;
-using std::cout;
-using std::vector;
-using std::max;
+using namespace std;
 
-void max_sliding_window_naive(vector<int> const & A, int w) {
-    for (size_t i = 0; i < A.size() - w + 1; ++i) {
-        int window_max = A.at(i);
-        for (size_t j = i + 1; j < i + w; ++j)
-            window_max = max(window_max, A.at(j));
+class lst
+{
+    class node{
+        public:
+        int data;
+        node* prev;
+        public:
+        int mx;
+        node(int d)
+        {
+            data = d;
+            mx = INT_MIN;
+            prev = NULL;
+        }
+    };
 
-        cout << window_max << " ";
+    public:
+    int size = 0;
+    node *last, *top;
+    lst()
+    {
+        last = NULL;
+        top = NULL;
+    }
+    void push(int x)
+    {
+        node *temp;
+        if(last == NULL)
+        {
+            temp = new node(x);
+            temp->mx = x;
+            this->top = temp;
+            this->last = temp;
+        }
+        else{
+            temp = new node(x);
+            temp->mx = max(x,this->top->mx);
+            temp->prev = this->top;
+            this->top = temp;
+        }
+        size++;
     }
 
-    return;
-}
+    int pop()
+    {
+        if(this->top == this->last)
+        {
+            int x = this->top->data;
+            delete this->top;
+            this->top = NULL;
+            this->last = NULL;
+            return x;
+        }
+        else{
+            node *temp = this->top;
+            this->top = this->top->prev;
+            int x = temp->data;
+            delete temp;
+            return x;
+        }
+    }
+
+    int maxi()
+    {
+        return this->top->mx;
+    }
+};
 
 
-int main() {
-    int n = 0;
+int main()
+{
+    lst t1, t2;
+    int n,m,c=0;
     cin >> n;
-
-    vector<int> A(n);
-    for (size_t i = 0; i < n; ++i)
-        cin >> A.at(i);
-
-    int w = 0;
-    cin >> w;
-
-    max_sliding_window_naive(A, w);
-
-    return 0;
+    vector<int>ints(n);
+    for (int i = 0; i < n; i++)
+        cin >> ints[i];
+    cin >> m;
+    
+    while(1)
+    {
+        bool f = 1;
+        if(f)
+        {
+            int ctr = m;
+            while(ctr--)
+                t1.push(ints[c++]);
+            f = 0;
+            ctr = m;
+            while(ctr--)
+                t2.push(t1.pop());
+            cout << t2.maxi() << " ";
+        }
+        int ctr,mx = INT_MIN;
+    
+        if(c%m == 0)
+            ctr = m;
+        else
+            ctr = n%m;
+        while(ctr--)
+        {
+            t2.pop();
+            t1.push(ints[c++]);
+            if(ctr+1 > 1){
+                t2.top->mx = max(t2.maxi(),ints[c-1]);
+                cout << max(t2.maxi(),ints[c-1]) << " "; 
+            }
+            // else
+            // {
+            //     int ctr1 = t1.size;
+            //     while(ctr1--)
+            //         t2.push(t1.pop());
+            //     cout << t2.maxi() << " "; 
+            // }
+        }
+        if(c==n)
+            break;
+    }
 }

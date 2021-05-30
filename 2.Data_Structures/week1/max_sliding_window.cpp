@@ -95,7 +95,10 @@ int main()
                 t2.push(t1.pop());
             cout << t2.maxi() << " ";
         }
-        int ctr,mx = INT_MIN;
+        int ctr = m;
+        while(ctr--)
+            t2.push(t1.pop());
+        t1 = lst();
     
         if(c%m == 0)
             ctr = m;
@@ -105,17 +108,13 @@ int main()
         {
             t2.pop();
             t1.push(ints[c++]);
-            if(ctr+1 > 1){
-                t2.top->mx = max(t2.maxi(),ints[c-1]);
-                cout << max(t2.maxi(),ints[c-1]) << " "; 
+            if(ctr+1 > 1)
+                cout << max(t2.maxi(),t1.maxi()) << " "; 
+            else
+            {
+                t2 = lst();
+                cout << t1.maxi();
             }
-            // else
-            // {
-            //     int ctr1 = t1.size;
-            //     while(ctr1--)
-            //         t2.push(t1.pop());
-            //     cout << t2.maxi() << " "; 
-            // }
         }
         if(c==n)
             break;

@@ -20,7 +20,12 @@ fn main(){
   let n:i32 = sp.next().unwrap().parse().unwrap();
   let mut arr:VecDeque<i32> = VecDeque::new();
   inp(&mut arr);
-
+  if(th >= n){
+    for i in 0..n{
+      println!("{} {}",i,0)
+    }
+    return;
+  }
   let mut res:Vec<pair> = Vec::new();
   let mut map:BTreeMap<i32,BinaryHeap<i32>> = BTreeMap::new();
   map.insert(0,BinaryHeap::new());

@@ -1,9 +1,9 @@
 use std::collections::*;
 
 #[derive(Debug)]
-struct pair(i32,i32);
+struct pair(i64,i64);
 
-fn inp(arr:&mut VecDeque<i32>){
+fn inp(arr:&mut VecDeque<i64>){
   let mut s = String::new();
   std::io::stdin().read_line(&mut s);
   let it = s.split_whitespace();
@@ -16,9 +16,9 @@ fn main(){
   let mut s = String::new();
   std::io::stdin().read_line(&mut s);
   let mut sp = s.split_whitespace();
-  let th:i32 = sp.next().unwrap().parse().unwrap();
-  let n:i32 = sp.next().unwrap().parse().unwrap();
-  let mut arr:VecDeque<i32> = VecDeque::new();
+  let th:i64 = sp.next().unwrap().parse().unwrap();
+  let n:i64 = sp.next().unwrap().parse().unwrap();
+  let mut arr:VecDeque<i64> = VecDeque::new();
   inp(&mut arr);
   if(th >= n){
     for i in 0..n{
@@ -27,7 +27,7 @@ fn main(){
     return;
   }
   let mut res:Vec<pair> = Vec::new();
-  let mut map:BTreeMap<i32,BinaryHeap<i32>> = BTreeMap::new();
+  let mut map:BTreeMap<i64,BinaryHeap<i64>> = BTreeMap::new();
   map.insert(0,BinaryHeap::new());
   // println!("{:?},{}{}",arr,th,n);
   
@@ -47,7 +47,16 @@ fn main(){
     let mut hp = map.get(&f).unwrap().clone();
     
     while let Some(t) = hp.pop(){
-      let time = arr.pop_front().unwrap();
+      let mut time = arr.pop_front().unwrap();
+      if(time == 0){
+        res.push(pair(-1*t,time_pass));
+        if let Some(ttt) = arr.pop_front(){
+          time = ttt;
+        }
+        else{
+          break;
+        }
+      }
       res.push(pair(-1*t,time_pass));
       if let Some(x) = map.get_mut(&(time+time_pass)){
         x.push(t);
